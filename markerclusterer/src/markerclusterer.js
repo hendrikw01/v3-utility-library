@@ -1070,6 +1070,26 @@ ClusterIcon.prototype.triggerClusterClick = function() {
   }
 };
 
+/**
+ * Triggers the clustermouseover event.
+ */
+ClusterIcon.prototype.triggerClusterMouseover = function() {
+  var markerClusterer = this.cluster_.getMarkerClusterer();
+
+  // Trigger the clustermouseover event.
+  google.maps.event.trigger(markerClusterer.map_, 'clustermouseover', this.cluster_);
+};
+
+/**
+ * Triggers the clustermouseout event.
+ */
+ClusterIcon.prototype.triggerClusterMouseout = function() {
+  var markerClusterer = this.cluster_.getMarkerClusterer();
+
+  // Trigger the clustermouseout event.
+  google.maps.event.trigger(markerClusterer.map_, 'clustermouseout', this.cluster_);
+};
+
 
 /**
  * Adding the cluster icon to the dom.
@@ -1089,6 +1109,12 @@ ClusterIcon.prototype.onAdd = function() {
   var that = this;
   google.maps.event.addDomListener(this.div_, 'click', function() {
     that.triggerClusterClick();
+  });
+  google.maps.event.addDomListener(this.div_, 'mouseover', function() {
+    that.triggerClusterMouseover();
+  });
+  google.maps.event.addDomListener(this.div_, 'mouseout', function() {
+    that.triggerClusterMouseout();
   });
 };
 
